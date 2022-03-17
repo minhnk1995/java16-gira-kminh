@@ -20,7 +20,9 @@ import cybersoft.javabackend.java16girakminh.common.util.ResponseHelper;
 import cybersoft.javabackend.java16girakminh.role.dto.GiraGroupDTO;
 import cybersoft.javabackend.java16girakminh.role.dto.GiraGroupWithRolesDTO;
 import cybersoft.javabackend.java16girakminh.role.service.GiraGroupService;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("groups")
 public class GiraGroupController {
@@ -29,7 +31,13 @@ public class GiraGroupController {
 	
 	@GetMapping
 	public Object findAllGroups() {
+		// unify imperative and reactive code
+		log.info("Find all gira groups STARTED");
+		log.debug("calling GiraGroupService.findAllDto()");
 		List<GiraGroupDTO> groups = service.findAllDto();
+		log.debug("result: {}", groups);
+		
+		log.info("Find all gira groups STOPPED");
 		
 		return ResponseHelper.getResponse(groups, HttpStatus.OK);
 	}
